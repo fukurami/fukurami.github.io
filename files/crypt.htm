@@ -1,0 +1,4 @@
+﻿<p id="poge"><textarea></textarea><script src="https://fukurami.github.io/files/aes.js"></script>
+<script>document.addEventListener("DOMContentLoaded",E=>{var d=$("div.entry-content").clone();d.find("a.keyword").before((i,e)=>e).remove();d.find("#poge").remove();
+$("#poge>textarea").val(decodeURI("%3Cp%20id=%22moge%22%3E%3Cinput%20placeholder=%22input%20passphrase%22%3E%3Cbutton%3EDecrypt%3C/button%3E%3C/p%3E%3Cp%20id=%22plain%22%3E%3C/p%3E%3Cp%20id=%22encrypted%22%20style=%22word-wrap:break-word%22%3E"+CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(d.html()),prompt("input passphrase")||"").toString()+"%3C/p%3E%3Cp%3E%3Cscript%20src=%22https://fukurami.github.io/files/aes.js%22%3E%3C/script%3E%3Cscript%3Edocument.querySelector(%22#moge%3Ebutton%22).addEventListener(%22click%22,e=%3E$(%22#plain%22).html(CryptoJS.AES.decrypt($(%22#encrypted%22).hide().text(),$(%22#moge%3Einput%22).val()).toString(CryptoJS.enc.Utf8)));%3C/script%3E%3C/p%3E"))});
+</script></p>
