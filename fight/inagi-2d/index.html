@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        * {
+            box-sizing:border-box;
+        }
+        html, body {
+            padding:0;
+            margin:0;
+        }
+        #map {
+            position:absolute;
+            top:0;
+            left:0;
+            width: 100%;
+            height: 100%;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/inagi2020_pointsgsi20210321133155477_4.js"></script>
+        <script src="data/areaA_5.js"></script>
+        <script src="data/areaB_6.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:20, minZoom:10
+        }).setView([ 35.63189495821566, 139.5109972416329 ], 17n)
+        //fitBounds([[35.63009024272944,139.50811816407375],[35.633699673701884,139.51387631919206]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane__0');
+        map.getPane('pane__0').style.zIndex = 400;
+        var layer__0 = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png', {
+            pane: 'pane__0',
+            opacity: 1.0,
+            attribution: '国土地理院 基本測量成果（淡色地図）',
+            minZoom: 10,
+            maxZoom: 20,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer__0;
+        map.addLayer(layer__0);
+        map.createPane('pane__1');
+        map.getPane('pane__1').style.zIndex = 401;
+        var layer__1 = L.tileLayer('https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg', {
+            pane: 'pane__1',
+            opacity: 1.0,
+            attribution: '国土地理院 電子国土基本図（オルソ画像）・全国ランドサットモザイク画像〈データソース：Landsat8画像（GSI,TSIC,GEO Grid/AIST）, Landsat8画像（courtesy of the U.S. Geological Survey）, 海底地形（GEBCO）〉',
+            minZoom: 10,
+            maxZoom: 20,
+            minNativeZoom: 2,
+            maxNativeZoom: 18
+        });
+        layer__1;
+        map.addLayer(layer__1);
+        map.createPane('pane_197578_2');
+        map.getPane('pane_197578_2').style.zIndex = 402;
+        var layer_197578_2 = L.tileLayer('http://ktgis.net/kjmapw/kjtilemap/tokyo50/04/{z}/{x}/{-y}.png', {
+            pane: 'pane_197578_2',
+            opacity: 1.0,
+            attribution: '今昔マップ on the web',
+            minZoom: 10,
+            maxZoom: 20,
+            minNativeZoom: 8,
+            maxNativeZoom: 16
+        });
+        layer_197578_2;
+        map.addLayer(layer_197578_2);
+        map.createPane('pane_CKT7416C3538tt_modified_3');
+        map.getPane('pane_CKT7416C3538tt_modified_3').style.zIndex = 403;
+        var img_CKT7416C3538tt_modified_3 = 'data/CKT7416C3538tt_modified_3.png';
+        var img_bounds_CKT7416C3538tt_modified_3 = [[35.62591677668863,139.50322100876357],[35.63645868210001,139.5199743409019]];
+        var layer_CKT7416C3538tt_modified_3 = new L.imageOverlay(
+            img_CKT7416C3538tt_modified_3,
+            img_bounds_CKT7416C3538tt_modified_3,
+            {
+                pane: 'pane_CKT7416C3538tt_modified_3',
+                attribution: '国土地理院 単写真（CKT7416）'
+            });
+        bounds_group.addLayer(layer_CKT7416C3538tt_modified_3);
+        map.addLayer(layer_CKT7416C3538tt_modified_3);
+        function pop_inagi2020_pointsgsi20210321133155477_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name'] !== null ? autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['_markerType'] !== null ? autolinker.link(feature.properties['_markerType'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['_iconUrl'] !== null ? autolinker.link(feature.properties['_iconUrl'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['_iconSize'] !== null ? autolinker.link(feature.properties['_iconSize'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['_iconAnchor'] !== null ? autolinker.link(feature.properties['_iconAnchor'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_inagi2020_pointsgsi20210321133155477_4_0() {
+            return {
+                pane: 'pane_inagi2020_pointsgsi20210321133155477_4',
+                radius: 10.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 3.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,255,1.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_inagi2020_pointsgsi20210321133155477_4');
+        map.getPane('pane_inagi2020_pointsgsi20210321133155477_4').style.zIndex = 404;
+        map.getPane('pane_inagi2020_pointsgsi20210321133155477_4').style['mix-blend-mode'] = 'normal';
+        var layer_inagi2020_pointsgsi20210321133155477_4 = new L.geoJson(json_inagi2020_pointsgsi20210321133155477_4, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_inagi2020_pointsgsi20210321133155477_4',
+            layerName: 'layer_inagi2020_pointsgsi20210321133155477_4',
+            pane: 'pane_inagi2020_pointsgsi20210321133155477_4',
+            onEachFeature: pop_inagi2020_pointsgsi20210321133155477_4,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_inagi2020_pointsgsi20210321133155477_4_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_inagi2020_pointsgsi20210321133155477_4);
+        map.addLayer(layer_inagi2020_pointsgsi20210321133155477_4);
+        function pop_areaA_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name'] !== null ? autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_areaA_5_0() {
+            return {
+                pane: 'pane_areaA_5',
+                opacity: 1,
+                color: 'rgba(255,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(190,178,151,0.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_areaA_5');
+        map.getPane('pane_areaA_5').style.zIndex = 405;
+        map.getPane('pane_areaA_5').style['mix-blend-mode'] = 'normal';
+        var layer_areaA_5 = new L.geoJson(json_areaA_5, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_areaA_5',
+            layerName: 'layer_areaA_5',
+            pane: 'pane_areaA_5',
+            onEachFeature: pop_areaA_5,
+            style: style_areaA_5_0,
+        });
+        bounds_group.addLayer(layer_areaA_5);
+        map.addLayer(layer_areaA_5);
+        function pop_areaB_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['name'] !== null ? autolinker.link(feature.properties['name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_areaB_6_0() {
+            return {
+                pane: 'pane_areaB_6',
+                opacity: 1,
+                color: 'rgba(0,0,255,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(225,89,137,0.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_areaB_6');
+        map.getPane('pane_areaB_6').style.zIndex = 406;
+        map.getPane('pane_areaB_6').style['mix-blend-mode'] = 'normal';
+        var layer_areaB_6 = new L.geoJson(json_areaB_6, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_areaB_6',
+            layerName: 'layer_areaB_6',
+            pane: 'pane_areaB_6',
+            onEachFeature: pop_areaB_6,
+            style: style_areaB_6_0,
+        });
+        bounds_group.addLayer(layer_areaB_6);
+        map.addLayer(layer_areaB_6);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/areaA_5.png" /> 造成地A': layer_areaA_5,'<img src="legend/areaB_6.png" /> 造成地B': layer_areaB_6,'<img src="legend/inagi2020_pointsgsi20210321133155477_4.png" /> 目標地物': layer_inagi2020_pointsgsi20210321133155477_4,"航空写真1975": layer_CKT7416C3538tt_modified_3,"5万分の1地形図（1975-78)": layer_197578_2,"最新航空写真": layer__1,"地理院地図（淡色）": layer__0,},{collapsed:false}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_inagi2020_pointsgsi20210321133155477_4.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['name'] !== null?String('<div style="color: #000000; font-size: 12pt; font-weight: bold; font-family: \'小塚ゴシック Pro B\', sans-serif;">' + layer.feature.properties['name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_inagi2020_pointsgsi20210321133155477_4'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_areaA_5.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['name'] !== null?String('<div style="color: #000000; font-size: 12pt; font-weight: bold; font-family: \'小塚ゴシック Pro B\', sans-serif;">' + layer.feature.properties['name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_areaA_5'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_areaB_6.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['name'] !== null?String('<div style="color: #000000; font-size: 12pt; font-weight: bold; font-family: \'小塚ゴシック Pro B\', sans-serif;">' + layer.feature.properties['name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_areaB_6'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        L.ImageOverlay.include({
+            getBounds: function () {
+                return this._bounds;
+            }
+        });
+        resetLabels([layer_inagi2020_pointsgsi20210321133155477_4,layer_areaA_5,layer_areaB_6]);
+        map.on("zoomend", function(){
+            resetLabels([layer_inagi2020_pointsgsi20210321133155477_4,layer_areaA_5,layer_areaB_6]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_inagi2020_pointsgsi20210321133155477_4,layer_areaA_5,layer_areaB_6]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_inagi2020_pointsgsi20210321133155477_4,layer_areaA_5,layer_areaB_6]);
+        });
+        </script>
+    </body>
+</html>
