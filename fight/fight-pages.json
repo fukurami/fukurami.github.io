@@ -1,0 +1,56 @@
+[
+  {
+    "url": "http://fukurami.hatenablog.com/entry/ultrafight-01",
+    "title": "①はじめに／時期区分について",
+    "chapters": [
+      {"hash":"#introduction","title":"はじめに"},
+      {"hash":"#1-1","title":"1-1.放送日の謎と制作ナンバー"},
+      {"hash":"#1-2","title":"1-2.4つの指標による時期区分"}
+    ]
+  },
+  {
+    "url": "http://fukurami.hatenablog.com/entry/ultrafight-02",
+    "title": "②着ぐるみのバリエーション",
+    "chapters": [
+      {"hash":"#overview","title":"2-1.ウルトラファイトの怪獣たち"},
+      {"hash":"#eleking","title":"2-2.エレキングA・B・C"},
+      {"hash":"#ikarus","title":"2-3.イカルスA・B"},
+      {"hash":"#baltan","title":"2-4.バルタンA・B"},
+      {"hash":"#seven","title":"2-5.セブンは6種類もいる！"},
+    ]
+  },
+  {
+    "url": "http://fukurami.hatenablog.com/entry/ultrafight-03",
+    "title": "③撮影日程についての一考察",
+    "chapters": [
+      {"hash:":"#introduction", "title":"新撮編はいつ撮影されたのか"},
+      {"hash:":"#3-1", "title":"第1回撮影前半（1970年9月）"},
+      {"hash:":"#3-2", "title":"第1回撮影後半（1970年9月）"},
+      {"hash:":"#3-3", "title":"第2回撮影（1970年11月）"},
+      {"hash:":"#3-4", "title":"第3回撮影（1970年12月）"},
+      {"hash:":"#3-5", "title":"第4回撮影（1971年2月・軽井沢ロケ）"},
+      {"hash:":"#3-6", "title":"第5回撮影（1971年3月・伊豆下田ロケ）"},
+      {"hash:":"#3-7", "title":"追加撮影（1971年6月）"}
+    ]
+  },
+  {
+    "url": "http://fukurami.hatenablog.com/entry/ultrafight-04",
+    "title": "④ロケ地の変遷と「造成地」の地理的特徴",
+    "chapters": [
+      {"hash":"#4-1","title":"4-1.ウルトラファイト新撮編ロケ地の変遷"},
+      {"hash":"#4-2","title":"4-2.造成地研究の現状"},
+      {"hash":"#4-3","title":"4-3.「造成地A」の地形"},
+      {"hash":"#4-4","title":"4-4.「造成地B」の地形"},
+      {"hash":"#4-5","title":"4-5.初代「仮面ライダー」における造成地A"}
+    ]
+  },
+  {
+    "url": "http://fukurami.hatenablog.com/entry/ultrafight-05",
+    "title": "⑤「造成地」はどこなのか（あるいは、だったのか）",
+    "chapters": [
+      {"hash": "#5-1","title": "5-1.ウルトラファイトの「造成地」はどこにあるのか"},
+      {"hash": "#5-2","title": "5-2.ウルトラファイト「造成地」の過去と未来"},
+      {"hash": "#5-3","title": "5-3.「造成地」の現在：ロケ地探訪記"}
+    ]
+  }
+]
