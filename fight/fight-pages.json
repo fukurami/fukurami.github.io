@@ -57,9 +57,9 @@
     "url":"http://fukurami.hatenablog.com/entry/ultrafight-ex",
     "title":"番外地：放送情報・人名録・文献案内",
     "chapters":[
-      {"hash":"#e-1", "title:":"Ex-1.放送情報"},
-      {"hash":"#e-2", "title:":"Ex-2.ウルトラファイト人名録"},
-      {"hash":"#e-3", "title:":"Ex-3.ウルトラファイト文献案内"}
+      {"hash":"#e-1", "title":"Ex-1.放送情報"},
+      {"hash":"#e-2", "title":"Ex-2.ウルトラファイト人名録"},
+      {"hash":"#e-3", "title":"Ex-3.ウルトラファイト文献案内"}
     ] 
   }
 ]
