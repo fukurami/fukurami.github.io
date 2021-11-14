@@ -1,3 +1,4 @@
+<title>Too Long URL Generator</title>
 <meta charset="utf-8">
 <section style="margin:20px;padding-bottom:10px;border-bottom:1px solid #00c;">
   <h1>URL Info</h1>
@@ -40,10 +41,9 @@ async function url_info(){
 
 async function genurl(){
   const len = document.getElementById("genurl-length").value|0;
-  const base_url = get_base_url() + "?text=";
-  const base_url_len = base_url.length;
+  const base_url = get_base_url() + "?";
   let genurl = base_url;
-  for (let i = base_url_len; i < len; i++){
+  for (let i = base_url.length; i < len; i++){
     genurl += Math.floor(Math.random()*16).toString(16);
   }
   document.getElementById("genurl-link").href = genurl;
