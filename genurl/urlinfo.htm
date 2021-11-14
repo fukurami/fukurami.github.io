@@ -1,0 +1,57 @@
+<meta charset="utf-8">
+<section style="margin:20px;padding-bottom:10px;border-bottom:1px solid #00c;">
+  <h1>URL Info</h1>
+  <p>
+    URL Length: <span id="url-length"></span>
+  </p>
+  <p>
+    Hash(SHA-256): <span id="url-hash"></span>
+  </p>
+</section>
+<section style="margin:20px">
+  <h1>Too Long URL Generator</h1>
+  <p>
+    Length:<input id="genurl-length">
+    <button onclick="genurl()">Generate</button>
+  </p>
+  <p>
+    <a href="#" id="genurl-link"></a><br>
+    <span id="genurl-hash"></span><br>
+    <textarea id="genurl-area"></textarea>
+  </p>
+</section>
+
+<script>
+async function get_hash(text){
+  const data = (new TextEncoder()).encode(text);
+  const digest = await crypto.subtle.digest("SHA-256", data);
+  const hash = Array.from(new Uint8Array(digest)).map(byte=>byte.toString(16).padStart(2,"0")).join("");
+  return hash;
+}
+function get_base_url(){
+  return location.protocol + "//" + location.host + location.pathname;
+}
+
+async function url_info(){
+  document.getElementById("url-length").innerText = location.href.length;
+  const hash = await get_hash(location.href);
+  document.getElementById("url-hash").innerText = hash;
+}
+
+async function genurl(){
+  const len = document.getElementById("genurl-length").value|0;
+  const base_url = get_base_url() + "?text=";
+  const base_url_len = base_url.length;
+  let genurl = base_url;
+  for (let i = base_url_len; i < len; i++){
+    genurl += Math.floor(Math.random()*16).toString(16);
+  }
+  document.getElementById("genurl-link").href = genurl;
+  document.getElementById("genurl-link").innerText = "Generated URL";
+  document.getElementById("genurl-area").value = genurl;
+  document.getElementById("genurl-hash").innerText = "Hash(SHA-256): " + await get_hash(genurl);
+}
+
+url_info();
+
+</script>
