@@ -61,5 +61,17 @@
       {"hash":"#e-2", "title":"Ex-2.ウルトラファイト人名録"},
       {"hash":"#e-3", "title":"Ex-3.ウルトラファイト文献案内"}
     ] 
+  },
+  {
+    "url":"http://fukurami.hatenablog.com/entry/ultrafight-karuizawa",
+    "title":"軽井沢編のロケ地について",
+    "chapters":[
+      {"hash":"碓氷第三橋梁", "title":"0 碓氷第三橋梁"},
+      {"hash":"#草地", "title":"①草地"},
+      {"hash":"#岩場", "title":"②岩場"},
+      {"hash":"#雪原", "title":"③雪原"},
+      {"hash":"#砂地", "title":"④砂地"}
+    ]
   }
+
 ]
