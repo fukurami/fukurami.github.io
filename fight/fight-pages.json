@@ -72,6 +72,14 @@
       {"hash":"#雪原", "title":"③雪原"},
       {"hash":"#砂地", "title":"④砂地"}
     ]
+  },
+  {
+    "url":"http://fukurami.hatenablog.com/entry/ultrafight-housou-jun",
+    "title":"放送順の考察：本放送/再放送と福島県1971年放送",
+    "chapters":[
+      {"hash":"#honhoso", "title":"1. TBS本放送の放送リストとその問題"},
+      {"hash":"#saihoso", "title":"2.TBS再放送の順序と「ひばく星人」問題"},
+      {"hash":"#chihou", "title":"3.地方局における放送順"}
+    ]
   }
-
 ]
