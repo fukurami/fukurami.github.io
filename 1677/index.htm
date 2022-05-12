@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<meta http-equiv="content-language" content="ja">
+<title>1677万色 / 16,777,216 colors</title>
+<meta name="description" content="24bit RGBで表現可能な色（1677万7216色）をすべて並べて一覧にしただけのページ">
+<meta property="og:title" content="1677万色 / 16,777,216 colors">
+<meta property="og:description" content="24bit RGBで表現可能な色（1677万7216色）をすべて並べただけのページ">
+<meta name="viewport" content="width=514, initial-scale=0.7">
+
+<div id="canvas_container"></div>
+
+<div id="title">
+  <h1>1677万色</h1>
+  <p>All 24bit RGB Colors : 256 * 256 * 256 = 16,777,216 colors</p>
+</div>
+
+<div id="picker">
+  <label id="mover" for="picker_pos">
+    <svg id="uparrow" class="arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8.67 7.51"><g><path d="M0,7.51,4.34,0,8.67,7.51,4.34,5Z"/></g></svg>
+    <svg id="downarrow" class="arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8.67 7.51"><g><path d="M8.67,0,4.34,7.51,0,0,4.34,2.51Z"/></g></svg>
+    <input type="checkbox" id="picker_pos" checked>
+  </label>
+  <div id="colorbox"></div>
+  <div id="colorprop">
+    <span id="colorprop_hex">#ffffff</span>
+    <span id="colorprop_rgb">255,255,255</span>
+  </div>
+  <div id="picker-closer">×</div>
+</div>
+
+<style>
+* {
+  box-sizing:border-box;
+}
+body {
+  margin:0;
+  padding:0;
+}
+#canvas_container {
+  width:100%;
+  display:flex;
+  flex-direction:column;
+}
+#canvas_container canvas {
+  width:100%;
+  background-color:#000;
+  cursor:crosshair;
+}
+#title {
+  position:fixed;
+  inset:0;
+  margin:auto;
+  width:fit-content;
+  height:fit-content;
+  color:#fff;
+  background-color:rgba(0,0,0,0.3);
+  text-align:center;
+  animation:3s fadeout 3s forwards;
+}
+#title h1 {
+  font-size:20vw;
+  margin:0;
+}
+
+@keyframes fadeout {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity: 0;
+    visibility:hidden;
+  }
+}
+
+#picker { /*default pos = bottom left*/
+  position:fixed;
+  bottom:0;
+  left:0;
+  height:50px;
+  width:fit-content;
+  display:flex;
+  flex-direction:row;
+  transform: translate(0,0)
+}
+#picker.upleft {
+  top:0;
+  left:0;
+}
+#picker.hide {
+  display:none;
+}
+
+#picker #colorbox {
+  height:50px;
+  width:50px;
+  background-color:#fff;
+  border:#fff 1px solid;
+}
+#picker #colorprop {
+  font-size:small;
+  background-color:rgba(0,0,0,0.5);
+  color:#fff;
+  padding:5px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  width:100px;
+  overflow:hidden;
+}
+#picker #mover {
+  background-color:rgba(0,0,0,0.5);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  cursor:pointer;
+}
+#picker #uparrow {
+  display:block;
+  cursor:pointer;
+}
+#picker #downarrow {
+  display:none;
+  cursor:pointer;
+}
+#picker.upleft #uparrow {
+  display:none;
+}
+#picker.upleft #downarrow {
+  display:block;
+}
+#picker #picker_pos {
+  display:none;
+}
+#picker #mover .arrow {
+  width:15px;
+  height:15px;
+}
+#picker #mover .arrow path {
+  fill:#fff;
+}
+#picker-closer {
+  color:#fff;
+  background-color:rgba(0,0,0,0.5);
+  display:flex;
+  align-items:center;
+  cursor:pointer;
+}
+</style>
+<script>
+(function(){
+
+const number_of_color = 256*256*256;
+
+function create_color_array(){
+  const data = new Uint8ClampedArray(number_of_color*4);
+  let p = 0;
+  for (let r=255; r >= 0; r--){
+    for (let g=255; g >= 0; g--){
+      for (let b=255; b >= 0; b--){
+        data[p++] = r;
+        data[p++] = g;
+        data[p++] = b;
+        data[p++] = 255;
+      }
+    }
+  }
+  return data;
+}
+const color_array = create_color_array();
+
+function create_image_data_list(w,h){ // w, h is size of one canvas
+  const list = [];
+  let totalh = Math.ceil(number_of_color / w);
+  for(let height_count = 0; height_count < totalh; ){
+    const current_h = Math.min(totalh - height_count, h);
+    const slice_array = color_array.subarray(height_count * w * 4, (height_count += current_h) * w * 4);
+    const new_array = new Uint8ClampedArray(w * current_h * 4);
+    new_array.set(slice_array);
+
+    list.push(new ImageData(new_array, w, current_h));
+  }
+  return list;
+}
+
+const canvas_height = 8000;
+function canvas_size_util(canvas, w, h){
+  canvas.width = w;
+  canvas.height = h;
+  canvas.style.width = w + "px";
+  canvas.style.height = h + "px";
+}
+const canvas_list = {
+  container:null,
+  elms:[],
+  mousemove_events:[],
+  click_events:[],
+  default_length:4,
+  init(container){
+    this.container = container;
+    for(let i=0; i < this.default_length; i++){
+      this.append();
+    }
+  },
+  append(){
+    const canv = document.createElement("canvas");
+    this.container.appendChild(canv);
+    canv.addEventListener("mousemove", e=>{
+      this.mousemove_events.forEach(evt=>evt(e));
+    });
+    canv.addEventListener("click", e=>{
+      this.click_events.forEach(evt=>evt(e));
+    });
+    this.elms.push(canv);
+    return canv;
+  },
+  update(w){
+    image_data_list = create_image_data_list(w, canvas_height);
+    const d = this.elms.length - image_data_list.length;
+    if(d > 0){
+      this.elms.splice(-d).forEach(el=>el.remove());
+    }
+    image_data_list.forEach((image_data, i)=>{
+      const canvas = this.elms[i] || this.append();
+      canvas_size_util(canvas, image_data.width, image_data.height);
+      canvas.getContext("2d").putImageData(image_data, 0, 0);
+    })
+  }
+}
+canvas_list.init(document.querySelector("#canvas_container"));
+
+const set_canvas_size = (function(canvas_list){
+  let old_w = 0;
+  return function set_canvas_size(){
+    const w = document.body.clientWidth;
+    if(w==old_w){
+      return;
+    }
+    old_w = w;
+    canvas_list.update(w);
+  }
+})(canvas_list);
+set_canvas_size();
+window.addEventListener("resize", set_canvas_size);
+
+// color picker
+function get_hex(n){
+  if(n<256) return n.toString(16).padStart(2,"0");
+  return n.toString(16);
+}
+function set_picker(r,g,b){
+  document.querySelector("#colorbox").style.backgroundColor = `rgb(${r},${g},${b})`;
+  document.querySelector("#colorprop_rgb").innerText = `${r},${g},${b}`;
+  document.querySelector("#colorprop_hex").innerText = `#${get_hex(r)}${get_hex(g)}${get_hex(b)}`;
+}
+set_picker(255,255,255);
+
+function get_color(x, y, canvas){
+  return Array.from(canvas.getContext("2d").getImageData(x, y, 1, 1).data);
+}
+
+function pick_color(e){
+  const x = e.offsetX;
+  const y = e.offsetY;
+  const [r,g,b] = get_color(x, y, e.target);
+  set_picker(r,g,b);  
+}
+canvas_list.mousemove_events.push(pick_color);
+canvas_list.click_events.push(pick_color);
+
+const picker_pos_elm = document.querySelector("#picker_pos");
+function set_picker_pos(){
+  const flag = picker_pos_elm.checked;
+  document.querySelector("#picker").classList.toggle("upleft",!flag);
+}
+set_picker_pos();
+picker_pos_elm.addEventListener("change", set_picker_pos);
+
+document.querySelector("#picker-closer").addEventListener("click",()=>{
+  document.querySelector("#picker").classList.add("hide");
+})
+
+})()
+</script>
